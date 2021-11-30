@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": null,
-    "database": "demo3",
+    "database": "demo",
     "host": "127.0.0.1",
     "dialect": "mysql",
 	"timezone": "+08:00"

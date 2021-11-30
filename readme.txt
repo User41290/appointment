@@ -50,3 +50,5 @@ node app.js
 6. To view the interface, open a browser and type
 http://localhost:8888
 
+7. To change the database info, at project directory, edit the file "/config/config.json"
+

@@ -1,0 +1,42 @@
+<div ng-controller="AdminAppointmentController">
+	<div class="row">
+		<div class="col-lg-12">
+			<h2>Update Appointment</h2>
+		</div>
+	</div>
+	<hr class="col-lg-12">
+
+
+	<div class="col-lg-12 align-left" style="font-size: 12px; text-align: left;">
+		<a ui-sref="admin.appointment.list" class="btn btn-success btn-sm ">Back</a>
+	</div>
+	<div class="col-lg-12">
+	<hr class="col-lg-12">
+	</div>
+
+	<form ng-submit="formUpdateApptSubmit()">
+        <div class="container2">
+          <div class="form-group">
+			<label for="new_date"><b>New Date :</b></label>
+            <input type="date" class="form-control" ng-model="new_date" class="button2" placeholder="Enter New Date" required="" />
+          </div> 
+
+          <div class="form-group">
+			<label for="new_time_from"><b>New time (from):</b></label>
+            <input type="new_time_from" class="form-control" ng-model="new_time_from" class="button2" placeholder="Enter desire time in number (9 - 18)" required=""/>
+          </div>
+		  
+		  <div class="form-group">
+			<label for="new_time_to"><b>New time (to):</b></label>
+            <input type="new_time_to" class="form-control" ng-model="new_time_to" class="button2" placeholder="Enter desire time in number (9 - 18)" required=""/>
+          </div>
+		  
+          <div class="form-group">
+            <button type="submit" class="button2 btn btn-success">Update</button>
+            <span class="text-danger" style="color:red">{{ error }}</span>
+          </div>
+
+        </div>
+    </form>
+
+</div>

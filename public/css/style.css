@@ -1,0 +1,186 @@
+.pull-right {
+	float: right;
+}
+
+.outline {
+	border: 1px solid rgb(10, 10, 10);
+}
+
+.status {
+	border-style: solid;
+	border-width: 3px;
+	border-color: #ded3d3;
+}
+
+.btn-width {
+	width: 150px;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.file-css {
+	display: block;
+	width: 100%;
+	height: calc(1.5em + .75rem + 2px);
+	padding: .375rem .75rem;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #495057;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid #ced4da;
+	border-radius: .25rem;
+	transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.disconnected {
+	background-color: #f00;
+}
+
+.connected {
+	background-color: #0f0;
+}
+
+.connected_seat {
+	background-color: #ff0;
+}
+
+.maintenance {
+	background-color: #ff0;
+}
+
+.playing {
+	background-color: #0f0;
+}
+
+/* Login Page  */
+/* Center the image and position the close button */
+.imgcontainer2 {
+	text-align: center;
+	margin: 24px 0 12px 0;
+	position: relative;
+}
+
+.container2 input[type=text],
+.container2 input[type=password] {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+.button2 {
+	background-color: #4CAF50;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+}
+
+.button2:hover {
+	opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn2 {
+	width: auto;
+	padding: 10px 18px;
+	background-color: #f44336;
+}
+
+.container2 {
+	padding: 16px;
+}
+
+/* The Modal (background) */
+.modal2 {
+	position: fixed;
+	/* Stay in place */
+	z-index: 1;
+	/* Sit on top */
+	left: 20%;
+	top: 0;
+	width: 50%;
+	/* Full width */
+	height: 100%;
+	/* Full height */
+	overflow: auto;
+	/* Enable scroll if needed */
+	padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content2 {
+	background-color: #fefefe;
+	margin: 5% auto 15% auto;
+	/* 5% from the top, 15% from the bottom and centered */
+	border: 1px solid #888;
+	width: 80%;
+	/* Could be more or less, depending on screen size */
+}
+
+.close2 {
+	position: absolute;
+	right: 25px;
+	top: 0;
+	color: #000;
+	font-size: 35px;
+	font-weight: bold;
+}
+
+.close2:hover,
+.close2:focus {
+	color: red;
+	cursor: pointer;
+}
+
+.spiner {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.padding_r_10p {
+	padding-right: 10px;
+}
+
+.padding_s_5p {
+	padding-right: 5px;
+	padding-left: 5px;
+}
+
+.padding_top_10p {
+	padding-top: 10px;
+}
+
+.md-datepicker-calendar-pane {
+	z-index: 1200
+}
+
+.tips {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+}
+
+
+/* Login Group stylings ------------------------------- */
+.user-group {
+	position: relative;
+	margin-bottom: 45px;
+}
+
+

@@ -1,0 +1,82 @@
+<html lang="en">
+<head>
+<title>Demo Appointment</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- css -->
+<link rel="stylesheet" href="public/css/bootstrap.min.css">
+<link rel="stylesheet" href="public/css/style.css">
+<link rel="stylesheet" href="public/css/ng-table.min.css">
+<link rel="stylesheet" href="public/css/alertify.min.css">
+<link rel="stylesheet" href="public/css/angular-material.css">
+
+<script src="public/js/jquery.min.js"></script>
+<script src="public/js/bootstrap.min.js"></script>
+<script src="public/js/popper.min.js"></script>
+<script src="public/js/angular.min.js"></script>
+<script src="public/js/angular-route.min.js"></script>
+<script src="public/js/angular-ui-router.min.js"></script>
+<script src="public/js/alertify.min.js"></script>
+<script src="public/js/angular-aria.js"></script> 
+<script src="public/js/angular-animate.js"></script> 
+<script src="public/js/angular-messages.js"></script> 
+<script src="public/js/angular-material.js"></script>
+<script src="public/js/init.js"></script>
+<script src="public/js/ngTable.js"></script>
+<script src="public/js/ng-table.min.js"></script>
+<script type="text/javascript" src="scripts/config2.js"></script>
+<script src="scripts/FileSaver.js"></script>
+<script src="scripts/public/ecrypt.js"></script>
+<script src="public/js/pdfmake.js"></script>
+<script src="public/js/vfs_fonts.js"></script>
+<script src="public/js/login-signup-controller.js"></script>
+<script src="public/js/dashboard-controller.js"></script>
+
+  <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 100%;}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+	
+	.sidenav2{
+      postion: fixed;
+    }
+	    
+    /* On small screens, set height to 'auto' for the grid */
+    @media screen and (max-width: 767px) {
+      .row.content {height: auto;} 
+    }
+	
+	.h-scroll{
+	}
+	
+	#bg {
+	  position: fixed;
+	  width: 100%; 
+	  height: 100%;
+	}
+	#bg img {
+	  position: absolute; 
+	  top: 0; 
+	  left: 0; 
+	  right: 0; 
+	  bottom: 0; 
+	  margin: auto; 
+	  min-width: 50%;
+	  min-height: 50%;
+	}
+	
+  </style>
+
+</head>
+<body id="ng-app" ng-app="app">
+  <div>
+      <div ui-view>
+	  </div>
+  </div>
+</body>
+</html>

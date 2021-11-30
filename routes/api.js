@@ -29,6 +29,14 @@ router.get('/appointment/get', function(req, res) {
 });
 
 
+router.post('/user/appointment', function(req, res) {
+	console.log("--- User Appointment API---");
+	console.log(req.body);
+	user_api.get_appt(req, res);
+});
+
+
+
 router.post('/appointment/create', function(req, res) {
 	console.log("--- Create Appointment API ---");
 	console.log(req.body);
@@ -61,6 +69,12 @@ router.post('/user/login', function(req, res) {
 	console.log("--- Login API ---");
 	console.log(req.body);
 	user_api.login(req, res);
+});
+
+
+router.get('/designer/get', function(req, res) {
+	console.log("--- Get Designer List API ---");
+	appointment_api.get_designer_list(req, res);
 });
 
 module.exports = router;

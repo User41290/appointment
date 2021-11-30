@@ -1,0 +1,38 @@
+<div ng-controller="AdminAppointmentController" ng-init="init_load()">
+	<div class="row">
+		<div class="col-lg-12">
+			<h2>Appointment</h2>
+		</div>
+	</div>
+	<hr class="col-lg-12">
+
+
+	<div class="col-lg-12 align-right" style="font-size: 12px; text-align: right;">
+		<a ui-sref="admin.appointment.new" class="btn btn-success btn-sm ">Book Appointment</a>
+	</div>
+
+	<div class="col-lg-12">
+		<table ng-table="tableParams" class="table" show-filter="true">
+			<tr ng-repeat="appt in appts_arr">
+				<td align="center" title="'Designer'" filter="{id: 'text'}" sortable="'id'">
+					{{appt.designer}}</td>
+				<td align="center" title="'Date'" filter="{ date: 'text'}" sortable="'date'">
+					{{appt.date}}</td>
+				<td align="center" title="'Time From'" filter="{ date: 'text'}" sortable="'date'">
+					{{appt.time_from}}</td>
+				<td align="center" title="'Time To'" filter="{ date: 'text'}" sortable="'date'">
+					{{appt.time_to}}</td>
+				<td align="left" title="">
+					<a ui-sref="{{'admin.appointment.update({appt_id: appt.id})'}}"
+						class="btn btn-success btn-sm btn-width mb-1">Update</a>
+					<button ng-click="cancel_appointment(appt.id)"
+						class="btn btn-success btn-sm btn-width mb-1">Cancel Appointment</button></td>
+			</tr>
+		</table>
+
+
+		<pagination ng-model="currentPage" total-items="todos.length" max-size="maxSize" boundary-links="true">
+		</pagination>
+	</div>
+
+</div>

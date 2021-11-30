@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<div class="row">
+	  <div class="col-lg-12">
+		<h2>Add New Admin</h2>
+	  </div>
+	</div>
+	
+	<div class="col-lg-12 align-left" style="font-size: 12px; text-align: left;">
+		<a ui-sref="admin.dashboard" class="btn btn-success btn-sm ">Back</a>
+	</div>
+	
+	<div class="col-lg-12">
+	<hr class="col-lg-12">
+	</div>
+
+	<form ng-submit="formNewUserSubmit()">
+        <div class="container2">
+          <div class="form-group">
+			<label for="uname"><b>Email :</b></label>
+            <input type="text" class="form-control" ng-model="username" class="button2" placeholder="Enter Email" required=""/>
+          </div> 
+
+          <div class="form-group">
+			<label for="psw"><b>Password :</b></label>
+            <input type="password" class="form-control" ng-model="password" class="button2" placeholder="Enter Password" required=""/>
+          </div>
+		  
+		  <div class="form-group">
+			<label for="confirm_psw"><b>Confirm Password :</b></label>
+            <input type="password" class="form-control" ng-model="confirm_password" class="button2" placeholder="Confirm Password" required=""/>
+          </div>
+		  
+		  <div class="form-group">
+			<label for="remark"><b>Remark :</b></label>
+            <input type="text" class="form-control" ng-model="remark" class="button2" placeholder="Enter Remark" required=""/>
+          </div>
+		  
+		  <div class="form-group">
+			<label for="role"><b>Role :</b></label>
+            <select class="form-control" ng-model="selectedRole">
+			  <option ng-repeat="x in roles" value="{{x.role}}">{{x.name}}</option>
+			</select>
+          </div>
+		  
+          <div class="form-group">
+            <button type="submit" class="button2 btn btn-success">Add</button>
+            <span class="text-danger" style="color:red">{{ error }}</span>
+          </div>
+
+        </div>
+    </form>
+

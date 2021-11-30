@@ -1,0 +1,69 @@
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- css -->
+<link rel="stylesheet" href="public/css/bootstrap.min.css">
+<link rel="stylesheet" href="public/css/style.css">
+
+<!-- JS -->
+<script src="public/js/jquery.min.js"></script>
+<script src="public/js/bootstrap.min.js"></script>
+<script src="public/js/popper.min.js"></script>
+<script src="public/js/angular.min.js"></script>
+<script src="public/js/angular-route.min.js"></script>
+<script src="public/js/angular-ui-router.min.js"></script>
+<script src="public/js/init.js"></script>
+<script src="public/js/ngTable.js"></script>
+
+</head>
+<body class="container-fluid mt-3">
+	<div class="card outline m-3">
+		<div class="card-body">
+			<div ng-init="init();"></div>
+		
+		
+			<div class="row-fluid">
+				<button class="btn btn-primary btn-sm" ng-click="appointment()">Appointment</button>
+			</div>
+		</div>
+		<hr class="outline">
+
+		<div id="action_log" class="modal fade" role="dialog">
+			<div class="modal-dialog modal-lg">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header form-inline">
+					<label>
+						Appointment Booking
+					</label>
+					<button class="btn btn-primary btn-sm ml-3" ng-click="reset_read_action_log()"  ng-if="action_is_log">Back</button>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="">
+						<div class="row">
+							<div class="col-3">
+								<div class="padding_s_5p">Select Date :</div>
+							    <div flex-xs="">
+							      <md-datepicker ng-model="action_startDate" ng-change="action_startTimeChange()" md-month-filter='true' md-placeholder="Enter date"></md-datepicker>
+							    </div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+					<button class="btn btn-primary btn-sm" ng-click="reset_read_action_log()"  ng-if="action_is_log">Back</button>
+				</div>
+			</div>
+
+			</div>
+		</div>
+		
+	</div>
+</body>
+</html>
+

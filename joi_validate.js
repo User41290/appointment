@@ -36,9 +36,9 @@ module.exports = function(){
 			return joi.object().keys({
 				appointment_id	: joi.number().required(),
 				user_id			: joi.number().positive().required(),
-				new_date			: joi.date().greater(min_date).less(max_date).required(),
-				new_time_from		: joi.number().positive().min(9).max(18).required(),
-				new_time_end		: joi.number().positive().min(9).max(18).required()
+				new_date		: joi.date().greater(min_date).less(max_date).required(),
+				new_time_from	: joi.number().positive().min(9).max(18).required(),
+				new_time_to		: joi.number().positive().min(9).max(18).required()
 			}).options({ stripUnknown: true });
 		},
 		joiAppointmentCancel: function(){
@@ -58,6 +58,12 @@ module.exports = function(){
 				time_end	: joi.number().positive().min(9).max(18).required()
 			}).options({ stripUnknown: true });
 		},
+		joiUserGetAppointment: function(){
+			return joi.object().keys({
+				user_id	: joi.number().positive().required(),
+			}).options({ stripUnknown: true });
+		},
+		
 	}
 	return module;
 }

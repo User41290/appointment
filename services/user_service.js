@@ -1,10 +1,13 @@
 var _ 		= require('underscore');
 var model	= require('../models');
+var sequelize = model.sequelize;
 
 const db_err = {status_code: 1000, message: "DB operation is failed."};
 
 exports.signup	= signup;
-exports.login	= login;/* 
+exports.login	= login;
+exports.get_appt= get_appt;
+/* 
 exports.update_player	= update_player;
 exports.update_info		= update_info;
 exports.gen_access_token= gen_access_token; */
@@ -36,6 +39,19 @@ async function login(username, password){
 		await user.check_password(password);
 		
 		return {user_id: user.id, display_name: user.display_name};
+	}
+	catch(err){
+		throw err;
+	}
+}
+
+
+async function get_appt(user_id){
+	try{
+		// 1. Check User exist
+		var appts_arr = await get_all_appointments(user_id);
+		
+		return appts_arr;
 	}
 	catch(err){
 		throw err;
@@ -128,7 +144,6 @@ async function gen_access_token(host_id, username){
 function get_user_by_username(username, is_signup = false){
 	return new Promise(function(success, reject){
 		// change to find or create
-		console.log(model);
 		model.users.findOne({where: {username: username, deleted_at: null}}).then(function(user){
 			if(user){
 				success(user);
@@ -165,3 +180,23 @@ function create_user(username, password, email, display_name){
 	});
 }
 
+
+// private function - get all appointments of that user
+function get_all_appointments(user_id){
+	return new Promise(function(success, reject){
+		var sql_query = "select appt.id, appt.date, appt.time_from, appt.time_to, d.display_name as designer from appointments appt inner join designers d on d.id = appt.designer_id where appt.is_cancel = 0 and appt.deleted_at is null and appt.user_id = "+user_id;
+		
+		sequelize.query(sql_query, {type: sequelize.QueryTypes.SELECT}).then(function(appt){
+			if(appt.length > 0){
+				success(appt);
+			}else{
+				success([]);
+			}
+		}).catch(function(err){
+			console.log(err);
+			res.send(db_err);
+		});
+		
+	});
+		
+}

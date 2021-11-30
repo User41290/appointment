@@ -7,6 +7,7 @@ exports.create_appointment	= create_appointment;
 exports.get_appointment		= get_appointment;
 exports.cancel_appointment	= cancel_appointment;
 exports.update_appointment	= update_appointment;
+exports.get_designer_list	= get_designer_list;
 
 const db_err 				= {status_code: 1000, message: "DB operation is failed."};
 
@@ -38,6 +39,19 @@ async function get_appointment(designer_id){
 		var appts_arr = await filter_appointment(designer_id);
 		
 		return appts_arr;
+	}
+	catch(err){
+		throw err;
+	}
+}
+
+
+async function get_designer_list(){
+	try{
+		// 1. Get Designer List
+		var designer_arr = await get_all_designer();
+		
+		return designer_arr;
 	}
 	catch(err){
 		throw err;
@@ -114,7 +128,6 @@ function filter_appointment(designer_id = null, date = null, time_from = null, t
 			sql_query += " and ("+time_from+" between time_from and time_to-1 or "+time_to+" between time_from+1 and time_to)";
 		
 		sequelize.query(sql_query, {type: sequelize.QueryTypes.SELECT}).then(function(appt){
-			console.log(appt);
 			if(appt.length > 0){
 				success(appt);
 			}else{
@@ -176,6 +189,24 @@ function get_user(user_id){
 		}).catch(function(err){
 			console.log(err);
 			reject(db_err);
+		});
+	});
+}
+
+
+// private function - get designer list
+function get_all_designer(){
+	return new Promise(function(success, reject){
+		model.designers.findAll({where: {deleted_at: null}}).then(function(designers_arr){
+			if(designers_arr.length > 0){
+				success(designers_arr);
+			}
+			else{
+				success([]);
+			}
+		}).catch(function(err){
+			console.log(err);
+			reject({status_code: 1000, message: "Database error."});
 		});
 	});
 }

@@ -260,7 +260,8 @@ angular.module('app', ['ui.router','angularUtils.directives.dirPagination','ngTa
 	
 	$scope.formUpdateApptSubmit = async function(){
 		try {
-			var resp = await $scope.update($stateParams.appt_id, $scope.new_date, $scope.new_time_from, $scope.new_time_to);
+			var new_date =  moment($scope.new_date).format('YYYY-MM-DD');
+			var resp = await $scope.update($stateParams.appt_id, new_date, $scope.new_time_from, $scope.new_time_to);
 			console.log(resp);
 			if(resp.status_code > 0){
 				$scope.$applyAsync(function(){
@@ -303,7 +304,8 @@ angular.module('app', ['ui.router','angularUtils.directives.dirPagination','ngTa
 	
 	$scope.formNewApptSubmit = async function(){
 		try {
-			var resp = await $scope.create($scope.selected.id, $scope.date, $scope.time_from, $scope.time_to);
+			var date =  moment($scope.date).format('YYYY-MM-DD');
+			var resp = await $scope.create($scope.selected.id, date, $scope.time_from, $scope.time_to);
 			console.log(resp);
 			if(resp.status_code > 0){
 				$scope.$applyAsync(function(){

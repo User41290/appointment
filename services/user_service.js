@@ -7,10 +7,6 @@ const db_err = {status_code: 1000, message: "DB operation is failed."};
 exports.signup	= signup;
 exports.login	= login;
 exports.get_appt= get_appt;
-/* 
-exports.update_player	= update_player;
-exports.update_info		= update_info;
-exports.gen_access_token= gen_access_token; */
 
 
 async function signup(username, password, email, display_name){
@@ -52,87 +48,6 @@ async function get_appt(user_id){
 		var appts_arr = await get_all_appointments(user_id);
 		
 		return appts_arr;
-	}
-	catch(err){
-		throw err;
-	}
-}
-
-
-// BO - Backend update player (password, status)
-async function update_player(username, type, value){
-	try{
-		// 1. Find and create member
-		var transaction 	= await model.sequelize.transaction();
-		var member 			= await common.get_member_username(username);
-		var member_login	= await member.get_member_login_log();
-		
-		console.log(JSON.stringify(member));
-		
-		if(type == "password"){
-			member 			= await member.get_member_api_info();
-		}
-		// change player status to inactive
-		else if(type == "status" && value == 0){
-			// force logout member from app
-			await member_login.update_info("is_login", 0);
-		}
-		
-		console.log(JSON.stringify(member));
-		await member.update_info(type, value);
-		await transaction.commit();
-		
-		return {member_id: username};
-	}
-	catch(err){
-		if (transaction){
-			await transaction.rollback();
-		}
-		throw err;
-	}
-}
-
-
-// BO - Backend update player (access_token, currency)
-async function update_info(username, currency, access_token){
-	try{
-		// 1. Find and create member
-		var transaction 	= await model.sequelize.transaction();
-		var member 			= await common.get_member_username(username);
-		var player 			= await member.get_member_api_info();
-		var member_login	= await member.get_member_login_log();
-		var new_token		= access_token;
-		
-		// kick player logout from app
-		await member_login.update_info("is_login", 0);
-		// update access_token
-		await member.update_info("remember_token", new_token);
-		// update currency
-		await player.update_info("description", currency);
-		await transaction.commit();
-		
-		return ;
-	}
-	catch(err){
-		if (transaction){
-			await transaction.rollback();
-		}
-		throw err;
-	}
-}
-
-
-async function gen_access_token(host_id, username){
-	try{
-		// 1. Find the member
-		var member 			= await common.get_member_username(username);
-		var member_login 	= await member.get_member_login_log();
-		var new_token		= common.random_generate_access_token();
-		// 2. force logout member from app
-		await member_login.update_info("is_login", 2);
-		// 3. update access_token
-		await member.update_access_token(new_token);
-		return new_token;
 	}
 	catch(err){
 		throw err;

@@ -4,8 +4,8 @@ module.exports = function (sequelize, DataTypes) {
 	const users = sequelize.define('users', {
 		username: {type: DataTypes.STRING},
 		display_name: {type: DataTypes.STRING},
-		password: {type: DataTypes.STRING(255)},
-		email: {type: DataTypes.STRING(255)},
+		password: {type: DataTypes.STRING},
+		email: {type: DataTypes.STRING},
 		createdAt: {field: 'created_at',type: DataTypes.DATE},
 		updatedAt: {field: 'updated_at',type: DataTypes.DATE},
 		deleted_at: {type: DataTypes.DATE}

@@ -119,7 +119,7 @@ function get_appointment_by_id(appt_id){
 // private function - get particular designer appointment info
 function filter_appointment(designer_id = null, date = null, time_from = null, time_to = null){
 	return new Promise(function(success, reject){
-		var sql_query = "select * from appointments where is_cancel=0 and deleted_at is null";
+		var sql_query = "select id, user_id, designer_id, date, time_from,time_to from appointments where is_cancel=0 and deleted_at is null";
 		if(designer_id)
 			sql_query += " and designer_id = "+designer_id;
 		if(date)
@@ -179,7 +179,7 @@ function get_designer(designer_id){
 // private function - check user exists
 function get_user(user_id){
 	return new Promise(function(success, reject){
-		model.users.findOne({where: {id: user_id, deleted_at: null}}).then(function(user){
+		model.users.findOne({where: {id: user_id, deleted_at: null}, attributes: ['id', 'display_name','email']}).then(function(user){
 			if(user){
 				success(user);
 			}
@@ -197,7 +197,7 @@ function get_user(user_id){
 // private function - get designer list
 function get_all_designer(){
 	return new Promise(function(success, reject){
-		model.designers.findAll({where: {deleted_at: null}}).then(function(designers_arr){
+		model.designers.findAll({where: {deleted_at: null}, attributes: ['id', 'display_name']}).then(function(designers_arr){
 			if(designers_arr.length > 0){
 				success(designers_arr);
 			}

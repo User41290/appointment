@@ -24,14 +24,29 @@ router.use(function(req,res, next){
 
 router.get('/appointment/get', function(req, res) {
 	console.log("--- Get Appointment ---");
-	console.log(req.params);
-	appointment_api.get_appointment(req, res);
+	console.log(req.query);
+	appointment_api.get_appt(req, res);
 });
 
 
 router.post('/appointment/create', function(req, res) {
 	console.log("--- Create Appointment API ---");
 	console.log(req.body);
+	appointment_api.create_appt(req, res);
+});
+
+
+router.post('/appointment/cancel', function(req, res) {
+	console.log("--- Cancel Appointment API ---");
+	console.log(req.body);
+	appointment_api.cancel_appt(req, res);
+});
+
+
+router.post('/appointment/update', function(req, res) {
+	console.log("--- Update Appointment API ---");
+	console.log(req.body);
+	appointment_api.update_appt(req, res);
 });
 
 

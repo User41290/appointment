@@ -1,39 +1,34 @@
-var model 		= require("../models");
-var sequelize 	= model.sequelize;
-var joi 		= require('joi');
-var _joi 		= require('../joi_validate')();
-var _ 			= require('underscore');
+var model 				= require("../models");
+var sequelize 			= model.sequelize;
+var joi 				= require('joi');
+var _joi 				= require('../joi_validate')();
+var _ 					= require('underscore');
+var appointment_service = require("../services/appointment_service");
 
 const db_err = {status_code: 1000, message: "DB operation is failed."};
 
-exports.get 	= get_appointment;
-exports.create 	= create_appointment;
+exports.get_appt	= get_appointment;
+exports.create_appt = create_appointment;
+exports.update_appt	= update_appointment;
+exports.cancel_appt = cancel_appointment;
 
 function get_appointment(req, res){
+	var result = joi.validate(req.query, _joi.joiAppointmentGet());
+	if(result.error){
+		console.log(result.error['details'][0]["message"]);
+		var message = {status_code: 1004, message: result.error['details'][0]['message']};
+		res.send(message);
+		return;
+	}
 	
-	//res.send({status_code: 0, message: "", data: ["2021-11-29", "2021-11-30", "2021-12-1"]});
-
-	var player_id = req.params.designer_id;
-
-	/* sequelize.query("select a.category, a.code, a.description, a.of_the_day, (CASE WHEN p.id is not null THEN p.id ELSE 0 END) AS id, (CASE WHEN p.level is not null THEN p.level ELSE 0 END) AS level, (CASE WHEN p.value is not null THEN p.value ELSE 0 END) AS curr_value from achievement_category as a left join player_achievement as p on a.id = p.achv_category_id and player_id = "+player_id, {type: sequelize.QueryTypes.SELECT}).then(function(achv){
-		if(achv.length > 0){
-			var achv_arr = calc_divider(achv);
-			var statistic_arr = [];
-			for(var i = 0 ; i < achv_arr.length; i++){
-				if(achv_arr[i].of_the_day == 1){
-					statistic_arr.push(achv_arr[i]);
-				}
-			}
-			
-			res.send({status_code: 0, message: "", data: {statistic: statistic_arr, achievement: achv_arr}});
-		}else{
-			res.send({status_code: 2010, message: "Your request was made with invalid credentials."});
-		}
-	}).catch(function(err){
-		console.log(err);
-		res.send(db_err);
-	}); */
-
+	var designer_id = req.query.designer_id;
+	
+	appointment_service.get_appointment(designer_id).then(function(info){
+		res.send({status_code: 0, data: info});
+		
+	}, function(err){
+		res.send({status_code: err.status_code, message: err.message});
+	});
 }
 
 
@@ -46,17 +41,69 @@ function create_appointment(req, res){
 		return;
 	}
 	
-	var username 	= req.body.username;
-	var password 	= encrypt_password(req.body.password);
-	var email 		= req.body.email;
-	var display_name= req.body.display_name;
+	var user_id 		= req.body.user_id;
+	var designer_id 	= req.body.designer_id;
+	var date 			= req.body.date;
+	var time_from		= req.body.time_from;
+	var time_end		= req.body.time_end;
 	
 	// 2. verify existence
-	user_service.signup(username, password, email, display_name).then(function(info){
-		res.send({status_code: 0, message: "User has been created successfully", data: info});
+	appointment_service.create_appointment(user_id, designer_id, date, time_from, time_end).then(function(info){
+		res.send({status_code: 0, message: "Appointment has been created successfully", data: info});
 		
 	}, function(err){
 		res.send({status_code: err.status_code, message: err.message});
 	});
 
 }
+
+
+function update_appointment(req, res){
+	var result = joi.validate(req.body, _joi.joiAppointmentUpdate());
+	if(result.error){
+		console.log(result.error['details'][0]["message"]);
+		var message = {status_code: 1004, message: result.error['details'][0]['message']};
+		res.send(message);
+		return;
+	}
+	
+	var user_id 		= req.body.user_id;
+	var appointment_id 	= req.body.appointment_id;
+	var new_date 		= req.body.new_date;
+	var new_time_from	= req.body.new_time_from;
+	var new_time_to		= req.body.new_time_end;
+	
+	// 2. verify existence
+	appointment_service.update_appointment(user_id, appointment_id, new_date, new_time_from, new_time_to).then(function(info){
+		res.send({status_code: 0, message: "Appointment has been changed successfully", data: info});
+		
+	}, function(err){
+		res.send({status_code: err.status_code, message: err.message});
+	});
+
+}
+
+
+function cancel_appointment(req, res){
+	var result = joi.validate(req.body, _joi.joiAppointmentCancel());
+	if(result.error){
+		console.log(result.error['details'][0]["message"]);
+		var message = {status_code: 1004, message: result.error['details'][0]['message']};
+		res.send(message);
+		return;
+	}
+	
+	var appointment_id 		= req.body.appointment_id;
+	var user_id 			= req.body.user_id;
+	
+	// 2. verify existence
+	appointment_service.cancel_appointment(user_id, appointment_id).then(function(){
+		res.send({status_code: 0, message: "Appointment has been deleted successfully"});
+		
+	}, function(err){
+		res.send({status_code: err.status_code, message: err.message});
+	});
+
+}
+
+

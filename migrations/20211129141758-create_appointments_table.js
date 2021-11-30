@@ -36,10 +36,10 @@ module.exports = {
 			type: Sequelize.DATEONLY
 		},
 		time_from: {
-			type: Sequelize.STRING
+			type: Sequelize.INTEGER
 		},
 		time_to: {
-			type: Sequelize.STRING
+			type: Sequelize.INTEGER
 		},
 		is_cancel: {
 			type: Sequelize.BOOLEAN,

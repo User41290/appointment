@@ -56,10 +56,10 @@ function create_appointment(req, res){
 	var designer_id 	= req.body.designer_id;
 	var date 			= req.body.date;
 	var time_from		= req.body.time_from;
-	var time_end		= req.body.time_end;
+	var time_to			= req.body.time_to;
 	
 	// 2. verify existence
-	appointment_service.create_appointment(user_id, designer_id, date, time_from, time_end).then(function(info){
+	appointment_service.create_appointment(user_id, designer_id, date, time_from, time_to).then(function(info){
 		res.send({status_code: 0, message: "Appointment has been created successfully", data: info});
 		
 	}, function(err){

@@ -4,14 +4,6 @@ angular
 		$scope, $rootScope, $window, $state, $stateParams, api, previousPageAndCount
 	) {
 		console.log("AdminLogoutController");
-		api.insert_db(
-			$rootScope.userName,
-			$rootScope.role,
-			"logout",
-			"success",
-			""
-		);
-
 		previousPageAndCount.reset();
 		$state.transitionTo("login");
 	})

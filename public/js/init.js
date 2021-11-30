@@ -66,7 +66,21 @@ angular.module('app', ['ui.router','angularUtils.directives.dirPagination','ngTa
 				})
 				.then(defaultResponseReject, defaultResponseReject);
 			},
-			load_designer: function () {
+			create_appointments : function (user_id, designer_id, date, time_from, time_to){
+				return $http({
+					method : 'post',
+					url    : "api/appointment/create",
+					data   : {
+						user_id 		: user_id,
+						designer_id		: designer_id,
+						date			: date,
+						time_from		: time_from,
+						time_to			: time_to
+					}
+				})
+				.then(defaultResponseReject, defaultResponseReject);
+			},
+			get_all_designer: function () {
 				return $http({
 					method : 'get',
 					url    : "api/designer/get"
@@ -159,7 +173,8 @@ angular.module('app', ['ui.router','angularUtils.directives.dirPagination','ngTa
 	
 }])
 .controller("AdminAppointmentController", function ($scope, $rootScope, $window, $state, api, $timeout,$stateParams ) {
-	$scope.appts_arr = [];
+	$scope.appts_arr 	= [];
+	$scope.designer_arr = [];
 	
 	$scope.load_appointments = function(user_id) {
 		return new Promise(function(success, reject){
@@ -194,6 +209,21 @@ angular.module('app', ['ui.router','angularUtils.directives.dirPagination','ngTa
 	$scope.update = function(appt_id, new_date, new_time_from, new_time_to) {
 		return new Promise(function(success, reject){
 			api.update_appointments(appt_id, $rootScope.user_id, new_date, new_time_from, new_time_to)
+			.then(function (resp) {
+				if (!resp) {
+					console.log("error");
+					reject();
+				} else {
+					//console.log(resp.data);
+					success(resp);
+				}
+			});
+		});
+	}
+	
+	$scope.create = function(desginer_id, date, time_from, time_to) {
+		return new Promise(function(success, reject){
+			api.create_appointments($rootScope.user_id, desginer_id, date, time_from, time_to)
 			.then(function (resp) {
 				if (!resp) {
 					console.log("error");
@@ -248,7 +278,48 @@ angular.module('app', ['ui.router','angularUtils.directives.dirPagination','ngTa
 		}
 	}
 	
+	$scope.load_designer = function(){
+		return new Promise(function(success, reject){
+			api.get_all_designer()
+			.then(function (resp) {
+				if (!resp) {
+					console.log("error");
+					reject();
+				} else {
+					//console.log(resp.data);
+					success(resp);
+				}
+			});
+		});
+	}
 	
+	$scope.load_designer_list = async function(){
+		var resp 			= await $scope.load_designer();
+		console.log(resp.data);
+		$scope.$applyAsync(function(){
+			$scope.designer_arr = resp.data; 
+		});
+	}
+	
+	$scope.formNewApptSubmit = async function(){
+		try {
+			var resp = await $scope.create($scope.selected.id, $scope.date, $scope.time_from, $scope.time_to);
+			console.log(resp);
+			if(resp.status_code > 0){
+				$scope.$applyAsync(function(){
+					$scope.error = resp.message;
+				});
+			}
+			else
+				$state.go('admin.appointment.list');
+			
+		}
+		catch (err) {
+			$timeout(function () {
+				$scope.error = err;
+			}, 0);
+		}
+	}
 	
 	
 	

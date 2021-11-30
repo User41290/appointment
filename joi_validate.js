@@ -55,7 +55,7 @@ module.exports = function(){
 				user_id		: joi.number().positive().required(),
 				date		: joi.date().greater(min_date).less(max_date).required(),
 				time_from	: joi.number().positive().min(9).max(18).required(),
-				time_end	: joi.number().positive().min(9).max(18).required()
+				time_to		: joi.number().positive().min(9).max(18).required()
 			}).options({ stripUnknown: true });
 		},
 		joiUserGetAppointment: function(){
